@@ -50,14 +50,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.8));
+            background: linear-gradient(rgba(99, 142, 241, 0.384), rgba(19, 52, 129, 0.37));
             z-index: 2;
         }
 
         /* Imágenes de fondo específicas */
-        .bg-1 { background-image: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=2000'); }
-        .bg-2 { background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=2000'); }
-        .bg-3 { background-image: url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=2000'); }
+        .bg-1 { background-image: url(fotos/foto\ ugel.jpg.jpeg); }
+        .bg-2 { background-image: url(fotos/ugeljuninv1.jpg); }
+        .bg-3 { background-image: url(fotos/ugeljuninv2.jpg); }
 
         /* Clase activa para mostrar la imagen */
         .slide-bg.active {
@@ -86,7 +86,7 @@
 
     <!-- Franja superior (Año oficial) -->
     <div class="bg-blue-900 text-gray-200 text-xs sm:text-sm py-2 px-4 text-center tracking-wide">
-        «Año de la consolidación de la excelencia educativa y el desarrollo»
+        «Año de la recuperación y consolidación de la economía peruana»
     </div>
 
     <!-- Navegación -->
@@ -96,12 +96,12 @@
                     <!-- Logo y Título -->
                     <div class="flex items-center">
                         <a href="#" class="flex-shrink-0 flex items-center gap-3">
-                            <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-inner">
-                                UJ
+                            <div class="w-20 h-20  rounded-full flex items-center justify-center text-white font-bold text-xl shadow-inner">
+                                <img src="fotos/logo ugel junin.png" alt="">
                             </div>
-                            <div class="flex flex-col">
-                                <span class="font-bold text-blue-900 text-lg sm:text-xl leading-tight">UGEL JUNÍN</span>
-                                <span class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">Ministerio de Educación</span>
+                            <div class="w-35 h-35">
+                                <span class="font-bold text-blue-900 text-2x1 sm:text-3xl leading-tight">UGEL JUNÍN</span>
+                                
                             </div>
                         </a>
                     </div>
@@ -113,6 +113,7 @@
                         <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Oficinas</a>
                         <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Servicios</a>
                         <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Convocatorias</a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Documentos de Gestión</a>
                         <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Transparencia</a>
                         
                         <button class="text-gray-500 hover:text-blue-600 ml-4 transition">
@@ -157,13 +158,12 @@
         
         <!-- Contenido del hero (z-20 para estar sobre las partículas e imágenes) -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center lg:text-left pointer-events-none w-full">
-            <div class="pointer-events-auto inline-block">
-                <span class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded-full mb-4 inline-block">Bienvenidos</span>
-            </div>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 pointer-events-auto">
+            
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 leading-tight mb-4 pointer-events-auto" style="text-shadow: 1px 1px 3px rgba(173, 170, 218, 0.9);">
                 UGEL Junín
             </h1>
-            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mb-8 mx-auto lg:mx-0 pointer-events-auto">
+            <p class="text-lg md:text-xl text-white max-w-2xl mb-8 mx-auto lg:mx-0 pointer-events-auto"
+   style="text-shadow: 1px 1px 3px rgba(0,0,0,0.9);">
                 Servicio eficiente y transparente para la comunidad educativa. Acceda rápidamente a los principales servicios y trámites institucionales de nuestra jurisdicción.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pointer-events-auto">
@@ -178,7 +178,7 @@
     </header>
 
     <!-- Sección de Servicios Principales (Replicando la cuadrícula de iconos) -->
-    <section id="servicios" class="py-16 bg-white relative -mt-8 z-30 mx-4 sm:mx-8 lg:mx-auto max-w-7xl rounded-xl shadow-xl">
+    <section id="servicios" class="py-16 bg-white relative mt-8 z-30 mx-4 sm:mx-8 lg:mx-auto max-w-7xl rounded-xl shadow-xl">
         <div class="px-6">
             <h2 class="text-2xl font-bold text-gray-800 mb-8 border-l-4 border-red-600 pl-3">Servicios en Línea</h2>
                 
