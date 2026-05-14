@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGEL Junín - Unidad de Gestión Educativa Local</title>
+    
+    <!-- Tailwind CSS (Framework de diseño) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome (Iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        /* Contenedor general del Hero para el slider */
+        .hero-slider {
+            position: relative;
+            background-color: #0f172a; /* Color base oscuro */
+        }
+
+        /* Capas de imágenes para el slider */
+        .slide-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1; /* Detrás del contenido y partículas */
+        }
+
+        /* Overlay oscuro para mejorar lectura (se aplica sobre las imágenes) */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.8));
+            z-index: 2;
+        }
+
+        /* Imágenes de fondo específicas */
+        .bg-1 { background-image: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=2000'); }
+        .bg-2 { background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=2000'); }
+        .bg-3 { background-image: url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=2000'); }
+
+        /* Clase activa para mostrar la imagen */
+        .slide-bg.active {
+            opacity: 1;
+        }
+
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Ocultar barra de desplazamiento en contenedores horizontales */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Franja superior (Año oficial) -->
+    <div class="bg-blue-900 text-gray-200 text-xs sm:text-sm py-2 px-4 text-center tracking-wide">
+        «Año de la consolidación de la excelencia educativa y el desarrollo»
+    </div>
+
+    <!-- Navegación -->
+        <nav class="bg-white shadow-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-20">
+                    <!-- Logo y Título -->
+                    <div class="flex items-center">
+                        <a href="#" class="flex-shrink-0 flex items-center gap-3">
+                            <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-inner">
+                                UJ
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-bold text-blue-900 text-lg sm:text-xl leading-tight">UGEL JUNÍN</span>
+                                <span class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">Ministerio de Educación</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Menú Escritorio -->
+                    <div class="hidden lg:flex items-center space-x-6">
+                        <a href="#" class="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">Inicio</a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Institución</a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Oficinas</a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Servicios</a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Convocatorias</a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Transparencia</a>
+                        
+                        <button class="text-gray-500 hover:text-blue-600 ml-4 transition">
+                            <i class="fa-solid fa-magnifying-glass text-xl"></i>
+                        </button>
+                    </div>
+
+                    <!-- Botón Menú Móvil -->
+                    <div class="flex items-center lg:hidden">
+                        <button id="mobile-menu-btn" class="text-gray-600 hover:text-blue-800 focus:outline-none p-2">
+                            <i class="fa-solid fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menú Móvil Desplegable -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="block px-3 py-2 text-blue-600 font-bold bg-blue-50 rounded-md">Inicio</a>
+                <a href="#" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-md">Institución</a>
+                <a href="#" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-md">Oficinas</a>
+                <a href="#" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-md">Servicios</a>
+                <a href="#" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-md">Convocatorias</a>
+                <a href="#" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-md">Transparencia</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section con Slider de Fondo -->
+    <header class="hero-slider py-20 lg:py-32 relative overflow-hidden min-h-[500px] flex items-center">
+        <!-- Imágenes del Slider -->
+        <div class="slide-bg bg-1 active"></div>
+        <div class="slide-bg bg-2"></div>
+        <div class="slide-bg bg-3"></div>
+
+        <!-- Capa de oscurecimiento (Gradient Overlay) -->
+        <div class="hero-overlay"></div>
+
+        <!-- Contenedor del fondo animado dentro del Hero (encima de las imágenes y overlay) -->
+        <div id="particles-js" class="absolute inset-0 z-10"></div>
+        
+        <!-- Contenido del hero (z-20 para estar sobre las partículas e imágenes) -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center lg:text-left pointer-events-none w-full">
+            <div class="pointer-events-auto inline-block">
+                <span class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded-full mb-4 inline-block">Bienvenidos</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 pointer-events-auto">
+                UGEL Junín
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mb-8 mx-auto lg:mx-0 pointer-events-auto">
+                Servicio eficiente y transparente para la comunidad educativa. Acceda rápidamente a los principales servicios y trámites institucionales de nuestra jurisdicción.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pointer-events-auto">
+                <a href="#servicios" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-md transition shadow-lg text-center">
+                    Trámites Frecuentes
+                </a>
+                <a href="#noticias" class="bg-white hover:bg-gray-100 text-blue-900 font-bold py-3 px-8 rounded-md transition shadow-lg text-center">
+                    Últimas Noticias
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de Servicios Principales (Replicando la cuadrícula de iconos) -->
+    <section id="servicios" class="py-16 bg-white relative -mt-8 z-30 mx-4 sm:mx-8 lg:mx-auto max-w-7xl rounded-xl shadow-xl">
+        <div class="px-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8 border-l-4 border-red-600 pl-3">Servicios en Línea</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <!-- SISDORE -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-blue-50 rounded-lg text-center border border-blue-100 hover:border-blue-300">
+                        <div class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-laptop-file"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Mesa de Partes Virtual (SISDORE)</h3>
+                    </a>
+
+                    <!-- Consultar Expediente -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-gray-50 rounded-lg text-center border border-gray-200 hover:border-blue-300">
+                        <div class="w-14 h-14 bg-amber-500 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Consultar Expediente</h3>
+                    </a>
+
+                    <!-- Boletas de Pago -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-gray-50 rounded-lg text-center border border-gray-200 hover:border-blue-300">
+                        <div class="w-14 h-14 bg-green-600 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Boletas de Pago</h3>
+                    </a>
+
+                    <!-- Descargar FUT -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-gray-50 rounded-lg text-center border border-gray-200 hover:border-blue-300">
+                        <div class="w-14 h-14 bg-red-500 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Descargar FUT</h3>
+                    </a>
+
+                    <!-- SINET Vacantes -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-gray-50 rounded-lg text-center border border-gray-200 hover:border-blue-300">
+                        <div class="w-14 h-14 bg-blue-800 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">SINET Vacantes</h3>
+                    </a>
+
+                    <!-- Comunicados -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-gray-50 rounded-lg text-center border border-gray-200 hover:border-blue-300">
+                        <div class="w-14 h-14 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Comunicados</h3>
+                    </a>
+
+                    <!-- Registro Asistencia -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-gray-50 rounded-lg text-center border border-gray-200 hover:border-blue-300">
+                        <div class="w-14 h-14 bg-teal-500 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-clipboard-user"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Registro Asistencia II.EE.</h3>
+                    </a>
+
+                    <!-- Aula Virtual -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-gray-50 rounded-lg text-center border border-gray-200 hover:border-blue-300">
+                        <div class="w-14 h-14 bg-indigo-500 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Aula Virtual Fortaleza</h3>
+                    </a>
+
+                    <!-- Denuncias -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-red-50 rounded-lg text-center border border-red-100 hover:border-red-300">
+                        <div class="w-14 h-14 bg-red-600 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-semibold text-red-800 text-sm">Denuncia en Línea</h3>
+                    </a>
+                    
+                    <!-- Reclamaciones -->
+                    <a href="#" class="service-card flex flex-col items-center p-6 bg-gray-50 rounded-lg text-center border border-gray-200 hover:border-blue-300">
+                        <div class="w-14 h-14 bg-gray-600 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-md">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Libro de Reclamaciones</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Noticias y Eventos -->
+        <section id="noticias" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8 border-b pb-4">
+                <h2 class="text-3xl font-bold text-gray-800 border-l-4 border-blue-600 pl-3">Noticias y Anuncios</h2>
+                <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold text-sm">Ver todas <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Noticia 1 -->
+                <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition flex flex-col">
+                    <div class="bg-gray-200 h-40 w-full relative">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded">Comunicado</div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-gray-500 text-xs mb-2"><i class="fa-regular fa-calendar mr-1"></i> mayo 13, 2026</p>
+                            <h3 class="font-bold text-gray-800 mb-2 leading-snug hover:text-blue-600 cursor-pointer">ATENCIÓN DIRECTORES DE LAS II.EE. PRIVADAS – REMITIR EVIDENCIAS</h3>
+                        </div>
+                        <a href="#" class="text-blue-600 text-sm font-semibold mt-4 inline-block hover:underline">Leer más</a>
+                    </div>
+                </article>
+
+                <!-- Noticia 2 -->
+                <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition flex flex-col">
+                    <div class="bg-gray-200 h-40 w-full relative">
+                        <div class="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">Convocatoria</div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-gray-500 text-xs mb-2"><i class="fa-regular fa-calendar mr-1"></i> mayo 12, 2026</p>
+                            <h3 class="font-bold text-gray-800 mb-2 leading-snug hover:text-blue-600 cursor-pointer">RESULTADOS FINALES – CONVOCATORIA DE EXPEDIENTES EBA – DPC</h3>
+                        </div>
+                        <a href="#" class="text-blue-600 text-sm font-semibold mt-4 inline-block hover:underline">Leer más</a>
+                    </div>
+                </article>
+
+                <!-- Noticia 3 -->
+                <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition flex flex-col">
+                    <div class="bg-gray-200 h-40 w-full relative">
+                        <div class="absolute top-2 left-2 bg-amber-500 text-white text-xs px-2 py-1 rounded">Aviso</div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-gray-500 text-xs mb-2"><i class="fa-regular fa-calendar mr-1"></i> mayo 11, 2026</p>
+                            <h3 class="font-bold text-gray-800 mb-2 leading-snug hover:text-blue-600 cursor-pointer">ATENCIÓN – CONVOCATORIA A EVALUADORES EDLO 2026</h3>
+                        </div>
+                        <a href="#" class="text-blue-600 text-sm font-semibold mt-4 inline-block hover:underline">Leer más</a>
+                    </div>
+                </article>
+
+                <!-- Noticia 4 -->
+                <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition flex flex-col">
+                    <div class="bg-gray-200 h-40 w-full relative">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded">Comunicado</div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-gray-500 text-xs mb-2"><i class="fa-regular fa-calendar mr-1"></i> mayo 10, 2026</p>
+                            <h3 class="font-bold text-gray-800 mb-2 leading-snug hover:text-blue-600 cursor-pointer">COMUNICADO DE SUSPENSIÓN DE CONVOCATORIA DE REASIGNACIÓN</h3>
+                        </div>
+                        <a href="#" class="text-blue-600 text-sm font-semibold mt-4 inline-block hover:underline">Leer más</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Instituciones y Plataformas -->
+        <section class="py-12 bg-white bg-opacity-80 border-t border-gray-200 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-xl font-bold text-gray-600 mb-8 uppercase tracking-widest">Plataformas y Sistemas Institucionales</h2>
+                
+                <div class="flex overflow-x-auto hide-scrollbar gap-8 items-center justify-between pb-4 opacity-70">
+                    <div class="flex-shrink-0 font-bold text-2xl text-gray-400">MINEDU</div>
+                    <div class="flex-shrink-0 font-bold text-xl text-gray-400"><i class="fa-solid fa-graduation-cap mr-2"></i> SIAGIE</div>
+                    <div class="flex-shrink-0 font-bold text-xl text-gray-400"><i class="fa-solid fa-chart-line mr-2"></i> ESCALE</div>
+                    <div class="flex-shrink-0 font-bold text-xl text-gray-400"><i class="fa-solid fa-shield-cat mr-2"></i> SíseVe</div>
+                    <div class="flex-shrink-0 font-bold text-xl text-gray-400"><i class="fa-solid fa-bowl-food mr-2"></i> QaliWarma</div>
+                    <div class="flex-shrink-0 font-bold text-xl text-gray-400"><i class="fa-solid fa-laptop mr-2"></i> PeruEduca</div>
+                    <div class="flex-shrink-0 font-bold text-xl text-gray-400">Identicole</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-blue-950 text-gray-300 pt-16 pb-8 border-t-4 border-red-600 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                    
+                    <!-- Info Institucional -->
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-900 font-bold text-lg">
+                                UJ
+                            </div>
+                            <span class="font-bold text-white text-xl">UGEL JUNÍN</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">
+                            Unidad de Gestión Educativa Local de Junín.<br>
+                            Comprometidos con el desarrollo educativo, la eficiencia y la transparencia en beneficio de nuestros estudiantes y docentes.
+                        </p>
+                        <div class="flex space-x-4 mt-6">
+                            <a href="#" class="w-10 h-10 bg-blue-900 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-blue-900 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-blue-900 rounded-full flex items-center justify-center hover:bg-red-600 transition">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Contacto -->
+                    <div>
+                        <h3 class="text-white font-bold text-lg mb-6 border-b border-blue-800 pb-2">Contacto y Ubicación</h3>
+                        <ul class="space-y-4 text-sm">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-location-dot mt-1 text-red-500"></i>
+                                <span>Jr. San Martín N° 456<br>Distrito y Provincia de Junín, Región Junín.</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-clock text-blue-400"></i>
+                                <span>
+                                    <strong>Lunes a Viernes</strong><br>
+                                    08:00 am – 01:00 pm<br>
+                                    02:30 pm – 05:30 pm
+                                </span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-envelope text-blue-400"></i>
+                                <span>tramite@ugeljunin.gob.pe</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Enlaces Rápidos -->
+                    <div>
+                        <h3 class="text-white font-bold text-lg mb-6 border-b border-blue-800 pb-2">Enlaces Rápidos</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Mesa de Partes Virtual</a></li>
+                            <li><a href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Directorio Telefónico</a></li>
+                            <li><a href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Convocatorias CAS</a></li>
+                            <li><a href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Documentos de Gestión (MOF, ROF)</a></li>
+                            <li><a href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Transparencia Estándar</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-t border-blue-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 text-center md:text-left gap-4">
+            <p>&copy; 2026 UGEL Junín – Unidad de Gestión Educativa Local.<br>RUC: 20000000000 (Referencial)</p>
+            <p>Desarrollado con <i class="fa-solid fa-heart text-red-600 mx-1"></i> para la Provincia de Junín.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Script para interactividad básica (Menú Móvil, Slider y Partículas) -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Menú Móvil ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // --- Lógica del Slider de Fondo ---
+        const slides = document.querySelectorAll('.slide-bg');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        const intervalTime = 4000; // 4 segundos
+
+        function nextSlide() {
+            // Quita la clase 'active' a la diapositiva actual
+            slides[currentSlide].classList.remove('active');
+            
+            // Incrementa el índice, si llega al final vuelve a 0
+            currentSlide = (currentSlide + 1) % totalSlides;
+            
+            // Añade la clase 'active' a la nueva diapositiva
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Inicia el intervalo si hay más de una imagen
+        if (totalSlides > 1) {
+            setInterval(nextSlide, intervalTime);
+        }
+    });
+
+    // --- Configuración de Particles.js ---
+    particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 60,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#60a5fa" // Azul claro para contrastar con el fondo oscuro
+                },
+                "shape": {
+                    "type": "polygon",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5 // Polígonos de 5 lados
+                    }
+                },
+                "opacity": {
+                    "value": 0.3,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 5,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#93c5fd", // Líneas azul celeste
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab" // Las partículas se conectan al ratón al pasar por encima
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push" // Añade más partículas al hacer clic
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 0.5
+                        }
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
