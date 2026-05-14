@@ -50,7 +50,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(99, 142, 241, 0.384), rgba(19, 52, 129, 0.37));
+            background: linear-gradient(rgba(137, 164, 226, 0.226), rgba(19, 52, 129, 0.37));
             z-index: 2;
         }
 
@@ -145,20 +145,17 @@
     </nav>
 
     <!-- Hero Section con Slider de Fondo -->
-    <header class="hero-slider py-20 lg:py-32 relative overflow-hidden min-h-[500px] flex items-center">
+    <header class="hero-slider py-24 lg:py-40 relative overflow-hidden min-h-[700px] flex items-center">
+        
         <!-- Imágenes del Slider -->
         <div class="slide-bg bg-1 active"></div>
-        <div class="slide-bg bg-2"></div>
-        <div class="slide-bg bg-3"></div>
 
-        <!-- Capa de oscurecimiento (Gradient Overlay) -->
+        <!-- Capa de oscurecimiento -->
         <div class="hero-overlay"></div>
 
-        <!-- Contenedor del fondo animado dentro del Hero (encima de las imágenes y overlay) -->
+        <!-- Partículas -->
         <div id="particles-js" class="absolute inset-0 z-10"></div>
-        
-        
-        </div>
+
     </header>
 
     <!-- Sección de Servicios Principales (Replicando la cuadrícula de iconos) -->
@@ -387,7 +384,7 @@
                     }
                 },
                 "color": {
-                    "value": "#60a5fa" // Azul claro para contrastar con el fondo oscuro
+                    "value": "#1e3a8a" // Azul claro para contrastar con el fondo oscuro
                 },
                 "shape": {
                     "type": "polygon",
@@ -400,7 +397,7 @@
                     }
                 },
                 "opacity": {
-                    "value": 0.3,
+                    "value": 0.45,
                     "random": false,
                     "anim": {
                         "enable": false,
@@ -422,8 +419,8 @@
                 "line_linked": {
                     "enable": true,
                     "distance": 150,
-                    "color": "#93c5fd", // Líneas azul celeste
-                    "opacity": 0.4,
+                    "color": "#1d4ed8", // Líneas azul celeste
+                    "opacity": 1,
                     "width": 1
                 },
                 "move": {
